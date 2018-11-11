@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Algorithms;
 using DataStructures;
+using Extensions;
 
 namespace ConsoleApp
 {
@@ -85,12 +87,42 @@ namespace ConsoleApp
             return Input;
         }
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Graph Input = ReadBenchmarkFile("fri26.tsp");
+            GeneticAlgorithm.Input = ReadBenchmarkFile("gr21.tsp");
+            GeneticAlgorithm.TournamentSize = 40;
+            GeneticAlgorithm.MutationRate = 0.1;
+            GeneticAlgorithm.InitializePopulation(size: 150);
+            int Best = GeneticAlgorithm.CurrentPopulation.Fittest.Distance;
+            int Worst = GeneticAlgorithm.CurrentPopulation.Fittest.Distance;
+            GeneticAlgorithm.EvolvePopulation();
+            for (int i = 0; i < 500; ++i)
+            {
+                //await Task.Delay(1000);
+                Console.WriteLine("Generation: " + GeneticAlgorithm.Generations);
 
-            Console.WriteLine("\n" + Input.ToMatrixString());
-            
+                #region Debug
+#if DebugInfo
+
+                Console.WriteLine($"Tournament selection selected {GeneticAlgorithm.SameParentsSelected} same pair(s) of parents.");
+                Console.WriteLine($"Crossover produced {GeneticAlgorithm.ChildIsFirstParent} child(ren) out of {GeneticAlgorithm.CurrentPopulation.Count} which were exact copy of first parent");
+                Console.WriteLine($"Crossover produced {GeneticAlgorithm.ChildIsSecondParent} child(ren) out of {GeneticAlgorithm.CurrentPopulation.Count} which were exact copy of second parent");
+#endif
+                #endregion
+
+                int Distance = GeneticAlgorithm.CurrentPopulation.Fittest.Distance;
+                Console.WriteLine(GeneticAlgorithm.CurrentPopulation.Fittest + " => " + Distance + "\n");
+                if (Distance < Best)
+                    Best = Distance;
+
+                if (Distance > Worst)
+                    Worst = Distance;
+
+                Console.WriteLine("Best Yet = " + Best + "\n");
+                Console.WriteLine("Worst Yet = " + Worst + "\n");
+                GeneticAlgorithm.EvolvePopulation();
+            }
+            Console.WriteLine("Done");
         }
     }
 }
