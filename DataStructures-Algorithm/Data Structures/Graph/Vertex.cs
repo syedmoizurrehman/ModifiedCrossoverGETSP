@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,9 @@ namespace DataStructures
             public LinkedList<Edge> Edges;
             public int Degree { get => Edges.Count; }
             public int Index { get; }
+            private Point _Position { get; }
+            public int X { get => _Position.X; }
+            public int Y { get => _Position.Y; }
 
             public Vertex(int index)
             {
@@ -49,7 +53,7 @@ namespace DataStructures
 
             public void ConnectTo(int targetIndex, int weight)
             {
-                if (weight != 0)
+                if (weight != 0 && !IsNeighbor(targetIndex))
                     Edges.AddLast(new Edge(targetIndex, weight));
             }
 
@@ -63,10 +67,44 @@ namespace DataStructures
 
             public Edge GetEdge(int targetIndex) => Edges.FirstOrDefault(X => X.Index == targetIndex);
 
+            /// <summary>
+            /// O(n) operation.
+            /// </summary>
+            /// <param name="targetIndex"></param>
+            /// <returns></returns>
             public bool IsNeighbor(int targetIndex)
             {
                 return Edges.FirstOrDefault(X => X.Index == targetIndex) != new Edge();
             }
+
+            /// <summary>
+            /// Gets a value indicating whether this vertex is connected to the vertices specified in parameter indices.
+            /// O(n) operation.
+            /// </summary>
+            /// <param name="predecessorIndex"></param>
+            /// <param name="successorIndex"></param>
+            /// <returns></returns>
+            public bool IsBetween(int predecessorIndex, int successorIndex)
+            {
+                if (predecessorIndex == successorIndex)
+                    return false;
+
+                bool IsPredecessorValid = false;
+                bool IsSuccessorValid = false;
+
+                foreach (var _Edge in Edges)
+                {
+                    if (_Edge.Index == predecessorIndex)
+                        IsPredecessorValid = true;
+
+                    else if (_Edge.Index == successorIndex)
+                        IsSuccessorValid = true;
+                }
+
+                return IsPredecessorValid && IsSuccessorValid;
+            }
+
+            public override string ToString() => "Index: " + Index.ToString();
         }
     }
 }
