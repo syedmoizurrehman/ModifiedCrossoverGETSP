@@ -115,9 +115,10 @@ namespace ConsoleApp
                 if (Distance < Best)
                     Best = Distance;
 
+                Console.WriteLine("Change2");
+
 
                 Console.WriteLine("This is a Change");
-
                 if (Distance > Worst)
                     Worst = Distance;
 

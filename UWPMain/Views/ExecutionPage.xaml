@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="UWPMain.Views.ExecutionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPMain.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="12, 0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="46"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Status: " VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="Running..." Visibility="{x:Bind ViewModel.IsRunning, Mode=OneWay}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="Completed" Visibility="{x:Bind ViewModel.IsStopped, Mode=OneWay}" VerticalAlignment="Center"/>
+        </Grid>
+        <ProgressBar Grid.Row="1" Minimum="0" Maximum="{x:Bind ViewModel.TotalGenerations, Mode=OneTime}" 
+                     IsIndeterminate="False" Value="{x:Bind ViewModel.CurrentGenerations, Mode=OneWay}"/>
+        <StackPanel Margin="12, 0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Purple">
+            <TextBlock VerticalAlignment="Center" Text="Generation Number:" Margin="0, 0, 5, 0"/>
+            <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.CurrentGenerations, Mode=OneWay}"/>
+        </StackPanel>
+        
+        <ListView Grid.Row="3" Height="{x:Bind RootGrid.Height, Mode=OneWay}" Width="{x:Bind RootGrid.Width, Mode=OneWay}" ItemsSource="{x:Bind ViewModel.Generations, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Path Distance: " Margin="0, 0, 5, 0"/>
+                            <TextBlock Text="{Binding FittestPath.Distance}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Path: " Margin="0, 0, 5, 0"/>
+                            <TextBlock Text="{Binding FittestPath}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.Items>
+                <x:String>aA</x:String>
+                <x:String>aA</x:String>
+                <x:String>aA</x:String>
+                <x:String>aA</x:String>
+            </ListView.Items>
+
+        </ListView>
+    </Grid>
+</Page>
