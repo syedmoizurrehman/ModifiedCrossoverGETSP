@@ -38,6 +38,126 @@ namespace Algorithms
             Generations = 0;
         }
 
+        public static void CycleCrossOverOperator()
+        {
+            int[] Parent1 = { 3, 4, 8, 2, 7, 1, 6, 5 };
+            int[] Parent2 = { 4, 2, 5, 1, 6, 8, 3, 7 };
+            int[] Offspring1 = { 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] Offspring2 = { 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] Offspring1_inserted = { 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] Offspring2_inserted = { 0, 0, 0, 0, 0, 0, 0, 0 };
+            int selected_distance_1;
+            int selected_distance_2;
+            int selected_distance_1_index = 0;
+            int selected_distance_2_index = 0;
+            for (int i = 0; i < Parent1.Length; i++)
+            {
+                if (i == 0)
+                {
+                    Offspring1[i] = Parent1[i];
+                    Offspring1_inserted[i] = 1;
+                    selected_distance_1 = Offspring1[i];
+                    selected_distance_1_index = 0; //offspring1 k liye jo element select hua hy uska parent1 mein index
+                }
+                else
+                {
+                    int searching_element_1 = Parent2[selected_distance_1_index];
+                    Boolean exists_1 = false;
+                    for (int it = 0; it < Offspring1.Length; it++)
+                    {
+                        if (Offspring1[it] == searching_element_1)
+                        {
+                            exists_1 = true;
+                        }
+                    }
+                    if (exists_1 == false)
+                    {
+                        int temp = 0;
+                        while (Parent1[temp] != searching_element_1)
+                        {
+                            temp = temp + 1;
+                        }
+                        Offspring1[temp] = Parent1[temp];
+                        selected_distance_1 = Offspring1[temp];
+                        selected_distance_1_index = temp;
+                        Offspring1_inserted[temp] = 1;
+                    }
+                    else
+                    {
+                        for (int it2 = 0; it2 < Offspring1.Length; it2++)
+                        {
+                            if (Offspring1_inserted[it2] == 0)
+                            {
+                                Offspring1[it2] = Parent2[it2];
+                            }
+                        }
+                        break;
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < Parent2.Length; i++)
+            {
+                if (i == 0)
+                {
+                    Offspring2[i] = Parent2[i];
+                    Offspring2_inserted[i] = 1;
+                    selected_distance_2 = Offspring2[i];
+                    selected_distance_2_index = 0; //offspring2 k liye jo element select hua hy uska parent2 mein index
+                }
+                else
+                {
+                    int searching_element_2 = Parent1[selected_distance_2_index];
+                    Boolean exists_2 = false;
+                    for (int it = 0; it < Offspring2.Length; it++)
+                    {
+                        if (Offspring2[it] == searching_element_2)
+                        {
+                            exists_2 = true;
+                        }
+                    }
+                    if (exists_2 == false)
+                    {
+                        int temp = 0;
+                        while (Parent2[temp] != searching_element_2)
+                        {
+                            temp = temp + 1;
+                        }
+                        Offspring2[temp] = Parent2[temp];
+                        selected_distance_2 = Offspring2[temp];
+                        selected_distance_2_index = temp;
+                        Offspring2_inserted[temp] = 1;
+                    }
+                    else
+                    {
+                        for (int it2 = 0; it2 < Offspring1.Length; it2++)
+                        {
+                            if (Offspring2_inserted[it2] == 0)
+                            {
+                                Offspring2[it2] = Parent1[it2];
+                            }
+                        }
+                        break;
+                    }
+                }
+
+            }
+
+
+            //LOOPS FOR PRINTING
+            Console.WriteLine("OFFSPRING1");
+            for (int it3 = 0; it3 < Offspring1.Length; it3++)
+            {
+                Console.WriteLine(Offspring1[it3]);
+            }
+            Console.WriteLine("OFFSPRING2");
+            for (int it3 = 0; it3 < Offspring2.Length; it3++)
+            {
+                Console.WriteLine(Offspring2[it3]);
+            }
+        }
+
         public static void InitializePopulation(int size)
         {
             CurrentPopulation = new Population(Input, size);
