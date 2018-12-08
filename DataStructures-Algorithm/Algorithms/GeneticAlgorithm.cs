@@ -91,12 +91,12 @@ namespace Algorithms
                 // If our start position is less than the end position
                 if (StartPos < EndPos && i > StartPos && i < EndPos)
                     ChildPath[i] = firstParent[i];
-                
+
                 // If our start position is larger
                 else if (StartPos > EndPos)
                 {
                     //if (!(i < StartPos && i > EndPos))
-                    if (i >= StartPos || i <= EndPos )
+                    if (i >= StartPos || i <= EndPos)
                         ChildPath[i] = firstParent[i];
                 }
             }

@@ -51,12 +51,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Benchmark Files\dantzig42.tsp" />
     <None Include="Benchmark Files\fri26.tsp" />
+    <None Include="Benchmark Files\ftv170.atsp" />
     <None Include="Benchmark Files\ftv33.atsp" />
     <None Include="Benchmark Files\gr17.tsp" />
     <None Include="Benchmark Files\gr17[E].tsp" />
     <None Include="Benchmark Files\gr21.tsp" />
+    <None Include="Benchmark Files\kro124p.atsp" />
+    <None Include="Benchmark Files\rbg443.atsp" />
     <None Include="Benchmark Files\Test1.tsp" />
+    <None Include="Benchmark Files\Test2.atsp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Benchmark Files\gr17_d.txt" />

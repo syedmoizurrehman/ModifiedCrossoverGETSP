@@ -10,4 +10,15 @@
     <DefineConstants>TRACE;DebugInfo</DefineConstants>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="..\DataStructures-Algorithms\Data Structures\Graph\Graph.cs" Link="Data Structures\Graph\Graph.cs" />
+    <Compile Include="..\DataStructures-Algorithms\Data Structures\Graph\PathGraph.cs" Link="Data Structures\Graph\PathGraph.cs" />
+    <Compile Include="..\DataStructures-Algorithms\Data Structures\Graph\Vertex.cs" Link="Data Structures\Graph\Vertex.cs" />
+    <Compile Include="..\DataStructures-Algorithms\Extensions\ListExtensions.cs" Link="Extensions\ListExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

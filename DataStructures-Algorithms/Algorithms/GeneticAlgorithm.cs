@@ -8,6 +8,11 @@ using Extensions;
 
 namespace Algorithms
 {
+    public enum CrossoverOperator
+    {
+        Default = 0, CycleCrossover = 1
+    }
+
     public static class GeneticAlgorithm
     {
         /// <summary>
@@ -19,6 +24,7 @@ namespace Algorithms
         public static double MutationRate { get; set; }
         public static double CrossoverRate { get; set; }
         public static Population CurrentPopulation { get; private set; }
+        public static CrossoverOperator CrossoverOperator { get; set; }
 
 #if DebugInfo
 
@@ -38,6 +44,7 @@ namespace Algorithms
 
         public static void InitializePopulation(int size)
         {
+            Generations = 0;
             CurrentPopulation = new Population(Input, size);
         }
 
@@ -48,18 +55,18 @@ namespace Algorithms
         public static void Mutate(PathGraph pathIndividual)
         {
             // Iterate through all path vertices
-            for (int Pos1 = 1; Pos1 < pathIndividual.Count - 1; ++Pos1)
+            for (int i = 1; i < pathIndividual.Count - 1; ++i)
             {
                 // Apply mutation rate
                 if (ThreadSafeRandom.CurrentThreadsRandom.NextDouble() < MutationRate)
                 {
-                    // Get a second random position in the path
-                    int Pos2 = ThreadSafeRandom.CurrentThreadsRandom.Next(1, pathIndividual.Count - 2);
+                    // Get a random index in the path
+                    int RandomIndex = ThreadSafeRandom.CurrentThreadsRandom.Next(1, pathIndividual.Count - 2);
 
                     // Swap the vertices at target position in path
-                    var Temp = pathIndividual[Pos1];
-                    pathIndividual[Pos1] = pathIndividual[Pos2];
-                    pathIndividual[Pos2] = Temp;
+                    var Temp = pathIndividual[i];
+                    pathIndividual[i] = pathIndividual[RandomIndex];
+                    pathIndividual[RandomIndex] = Temp;
                 }
             }
         }

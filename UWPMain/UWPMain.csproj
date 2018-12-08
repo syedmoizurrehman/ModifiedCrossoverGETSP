@@ -111,17 +111,17 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Benchmark Files\fri26.tsp" />
-    <None Include="Benchmark Files\ftv33.atsp" />
-    <None Include="Benchmark Files\gr17.tsp" />
-    <None Include="Benchmark Files\gr17[E].tsp" />
-    <None Include="Benchmark Files\gr21.tsp" />
-    <None Include="Benchmark Files\Test1.tsp" />
     <None Include="UWPMain_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Benchmark Files\gr17_d.txt" />
+    <Content Include="Benchmark Files\dantzig42.txt" />
+    <Content Include="Benchmark Files\fri26.txt" />
+    <Content Include="Benchmark Files\ftv170.txt" />
+    <Content Include="Benchmark Files\ftv33.txt" />
+    <Content Include="Benchmark Files\gr17.txt" />
     <Content Include="Benchmark Files\gr21.txt" />
+    <Content Include="Benchmark Files\kro124p.txt" />
+    <Content Include="Benchmark Files\rbg443.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace UWPMain
 
         private void ExecutionButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExecutionPage));
+            Frame.Navigate(typeof(ExecutionPage), ((BenchmarkSelector.SelectedItem as ComboBoxItem).Content as string).ToLower());
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -46,6 +47,15 @@ namespace UWPMain
             ViewModel.MutationRate = 10;
             ViewModel.CrossoverRate = 100;
             ViewModel.TotalGenerations = 500;
+        }
+
+        private void TextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            if (args.NewText.IsNumeric())
+                args.Cancel = false;
+
+            else
+                args.Cancel = true;
         }
     }
 }

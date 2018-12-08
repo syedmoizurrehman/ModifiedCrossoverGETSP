@@ -12,6 +12,8 @@ namespace DataStructures
     {
         public Vertex[] Vertices { get; private set; }
 
+        public bool IsUndirected { get; }
+
         /// <summary>
         /// Gets total number of vertices in this graph.
         /// </summary>
@@ -21,8 +23,9 @@ namespace DataStructures
         /// Initializes a new instance of <see cref="Graph"/> with specified number of vertices.
         /// </summary>
         /// <param name="count">The total number of vertices in this <see cref="Graph"/>. This cannot be changed.</param>
-        public Graph(int count)
+        public Graph(int count, bool isUndirected = true)
         {
+            IsUndirected = isUndirected;
             Size = count;
             Vertices = new Vertex[Size];
 
@@ -33,13 +36,15 @@ namespace DataStructures
         public void InsertEdge(int sourceIndex, int targetIndex, int weight)
         {
             Vertices[sourceIndex].ConnectTo(targetIndex, weight);
-            Vertices[targetIndex].ConnectTo(sourceIndex, weight);
+            if (IsUndirected)
+                Vertices[targetIndex].ConnectTo(sourceIndex, weight);
         }
 
         public void DeleteEdge(int sourceIndex, int targetIndex)
         {
             Vertices[sourceIndex].DisconnectFrom(targetIndex);
-            Vertices[targetIndex].DisconnectFrom(sourceIndex);
+            if (IsUndirected)
+                Vertices[targetIndex].DisconnectFrom(sourceIndex);
         }
 
         /// <summary>
@@ -67,6 +72,9 @@ namespace DataStructures
                 for (int j = 0; j < Size; j++)
                 {
                     AdjMatrix[i, j] = Vertices[i].GetEdge(j).Weight;
+                    //if (AdjMatrix[i, j] == 0)
+                    //Matrix.Append("-".PadLeft(3, ' ') + " ");
+                    //else
                     Matrix.Append(AdjMatrix[i, j].ToString().PadLeft(3, ' ') + " ");
                 }
                 Matrix.Append('\n');
@@ -75,6 +83,10 @@ namespace DataStructures
             return Matrix.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder List = new StringBuilder();
@@ -92,7 +104,26 @@ namespace DataStructures
 
         public bool IsTriangleInequalitySatisfied()
         {
-            return false;
+            if (!IsUndirected)
+                return false;
+
+            for (int i = 0; i < Size; ++i)
+            {
+                for (int j = 0; j < Size; ++j)
+                {
+                    if (j == i)
+                        continue;
+                    for (int k = 0; k < Size; ++k)
+                    {
+                        if (k == i || k == j)
+                            continue;
+
+                        if (GetEdgeWeight(i, j) > GetEdgeWeight(i, k) + GetEdgeWeight(k, j))
+                            return false;
+                    }
+                }
+            }
+            return true;
         }
 
         IEnumerator IEnumerable.GetEnumerator() => Vertices.GetEnumerator();
