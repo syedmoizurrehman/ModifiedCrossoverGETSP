@@ -48,6 +48,7 @@ namespace UWPMain
             ViewModel.MutationRate = 10;
             ViewModel.CrossoverRate = 100;
             ViewModel.TotalGenerations = 500;
+            ViewModel.CrossoverOperator = "Default";
         }
 
         private void TextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)

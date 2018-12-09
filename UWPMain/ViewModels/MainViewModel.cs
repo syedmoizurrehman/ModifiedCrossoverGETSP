@@ -126,6 +126,26 @@ namespace UWPMain.ViewModels
         private int _DelayedCrossoverRate;
         public int DelayedCrossoverRate { get => _DelayedCrossoverRate; set => Set(ref _DelayedCrossoverRate, value); }
 
+        private int _SelectedCrossoverIndex;
+        public int SelectedCrossoverIndex { get => _SelectedCrossoverIndex; set { Set(ref _SelectedCrossoverIndex, value); } }
+
+        private int _DelayedSelectedCrossoverIndex;
+        public int DelayedSelectedCrossoverIndex
+        {
+            get => _DelayedSelectedCrossoverIndex;
+            set
+            {
+                Set(ref _DelayedSelectedCrossoverIndex, value);
+                if (value == 0)
+                    DelayedCrossoverOperator = "Default";
+                else
+                    DelayedCrossoverOperator = "Cycle Crossover";
+            }
+        }
+
+        private string _DelayedCrossoverOperator;
+        public string DelayedCrossoverOperator { get => _DelayedCrossoverOperator; set => Set(ref _DelayedCrossoverOperator, value); }
+
         public string CrossoverOperator
         {
             get
@@ -141,20 +161,24 @@ namespace UWPMain.ViewModels
                 {
                     case "Cycle Crossover":
                         GeneticAlgorithm.CrossoverOperator = Algorithms.CrossoverOperator.CycleCrossover;
+                        DelayedCrossoverOperator = "Cycle Crossover";
+                        SelectedCrossoverIndex = 1;
+                        DelayedSelectedCrossoverIndex = 1;
                         break;
 
                     default:
                         GeneticAlgorithm.CrossoverOperator = Algorithms.CrossoverOperator.Default;
+                        DelayedCrossoverOperator = "Default";
+                        SelectedCrossoverIndex = 0;
+                        DelayedSelectedCrossoverIndex = 0;
                         break;
                 }
                 OnPropertyChanged();
             }
         }
 
-        private string _DelayedCrossoverOperator;
-        public string DelayedCrossoverOperator { get => _DelayedCrossoverOperator; set => Set(ref _DelayedCrossoverOperator, value); }
-
         private string _BenchmarkName;
+
         public string BenchmarkName { get => _BenchmarkName; set => Set(ref _BenchmarkName, value); }
 
         /// <summary>
@@ -173,7 +197,7 @@ namespace UWPMain.ViewModels
             {
                 case "ftv33":
                 case "kro124p":
-                case "rbg443":
+                case "ftv170":
                     IsSymmetric = false;
                     break;
             }
@@ -217,7 +241,9 @@ namespace UWPMain.ViewModels
                     TournamentSize = DelayedTournamentSize;
                     MutationRate = DelayedMutationRate;
                     CrossoverRate = DelayedCrossoverRate;
-                    CrossoverOperator = DelayedCrossoverOperator;
+                    SelectedCrossoverIndex = DelayedSelectedCrossoverIndex;
+                    if (CrossoverOperator != DelayedCrossoverOperator)
+                        CrossoverOperator = DelayedCrossoverOperator;
                 });
             }
         }
