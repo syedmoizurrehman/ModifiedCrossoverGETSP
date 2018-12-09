@@ -37,6 +37,7 @@ namespace UWPMain
 
         private void ExecutionButton_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.CrossoverOperator = (CrossoverSelector.SelectedItem as ComboBoxItem).Content as string;
             Frame.Navigate(typeof(ExecutionPage), ((BenchmarkSelector.SelectedItem as ComboBoxItem).Content as string).ToLower());
         }
 

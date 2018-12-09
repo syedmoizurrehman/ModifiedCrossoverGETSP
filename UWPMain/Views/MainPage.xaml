@@ -13,17 +13,23 @@
         <StackPanel Width="400">
             <TextBox Text="{x:Bind ViewModel.PopulationSize, Mode=TwoWay, Converter={StaticResource ValueToStringConverter}}" Header="Population Size"
                      BeforeTextChanging="TextBox_BeforeTextChanging"/>
-            <TextBox Text="{x:Bind ViewModel.TournamentSize, Mode=TwoWay, Converter={StaticResource ValueToStringConverter}}" Header="Tournament Size"
+            <TextBox Text="{x:Bind ViewModel.TournamentSize, Mode=TwoWay, Converter={StaticResource ValueToStringConverter}}" Margin="0, 10, 0, 0" Header="Tournament Size"
                      BeforeTextChanging="TextBox_BeforeTextChanging"/>
-            <Slider Header="Mutation Rate" Value="{x:Bind ViewModel.MutationRate, Mode=TwoWay}" SmallChange="1" LargeChange="5" TickFrequency="1" TickPlacement="None" Minimum="0" Maximum="100" StepFrequency="1"/>
-            <Slider Header="Crossover Rate" Value="{x:Bind ViewModel.CrossoverRate, Mode=TwoWay}" SmallChange="1" LargeChange="5" TickFrequency="1" TickPlacement="None" Minimum="0" Maximum="100" StepFrequency="1"/>
+            <Slider Header="Mutation Rate" Value="{x:Bind ViewModel.MutationRate, Mode=TwoWay}" SmallChange="1" LargeChange="5" TickFrequency="1" 
+                    TickPlacement="None" Minimum="0" Maximum="100" StepFrequency="1" Margin="0, 10, 0, 0"/>
+            <Slider Header="Crossover Rate" Value="{x:Bind ViewModel.CrossoverRate, Mode=TwoWay}" SmallChange="1" LargeChange="5" TickFrequency="1"
+                    TickPlacement="None" Minimum="0" Maximum="100" StepFrequency="1" Margin="0, 10, 0, 0"/>
             <TextBox Header="No. of Generations" Text="{x:Bind ViewModel.TotalGenerations, Mode=TwoWay, Converter={StaticResource ValueToStringConverter}}"
-                     BeforeTextChanging="TextBox_BeforeTextChanging"/>
-            <ComboBox Name="BenchmarkSelector" Header="Select Benchmark" HorizontalAlignment="Stretch" SelectedIndex="0" Margin="0,0,0,0" VerticalAlignment="Top">
+                     BeforeTextChanging="TextBox_BeforeTextChanging" Margin="0, 10, 0, 0"/>
+            <ComboBox Name="CrossoverSelector" Header="Select Crossover Operator" HorizontalAlignment="Stretch" SelectedIndex="0" Margin="0,10,0,0" VerticalAlignment="Top">
+                <ComboBoxItem Content="Default"/>
+                <ComboBoxItem Content="Cycle Crossover"/>
+            </ComboBox>
+            <ComboBox Name="BenchmarkSelector" Header="Select Benchmark" HorizontalAlignment="Stretch" SelectedIndex="0" Margin="0,10,0,0" VerticalAlignment="Top">
                 <ComboBoxItem Content="GR21"/>
                 <ComboBoxItem Content="FRI26"/>
                 <ComboBoxItem Content="FTV33"/>
-                <ComboBoxItem Content="DANTGIZ42"/>
+                <ComboBoxItem Content="DANTZIG42"/>
                 <ComboBoxItem Content="KRO124P"/>
                 <ComboBoxItem Content="RBG443"/>
             </ComboBox>

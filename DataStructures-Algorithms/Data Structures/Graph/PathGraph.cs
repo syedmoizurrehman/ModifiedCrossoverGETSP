@@ -79,6 +79,8 @@ namespace DataStructures
             _PathVertices[Count - 1] = SupersetGraph[indices.Last()];
         }
 
+        public int IndexOf(Graph.Vertex vertex) => Array.IndexOf(_PathVertices, vertex);
+
         /// <summary>
         /// Shuffles the vertices in the path randomly. Preserve the first and last vertex if path is a circuit.
         /// </summary>

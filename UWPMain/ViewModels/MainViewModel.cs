@@ -126,7 +126,36 @@ namespace UWPMain.ViewModels
         private int _DelayedCrossoverRate;
         public int DelayedCrossoverRate { get => _DelayedCrossoverRate; set => Set(ref _DelayedCrossoverRate, value); }
 
-        public string BenchmarkName { get; set; }
+        public string CrossoverOperator
+        {
+            get
+            {
+                if (GeneticAlgorithm.CrossoverOperator == Algorithms.CrossoverOperator.CycleCrossover)
+                    return "Cycle Crossover";
+
+                return "Default";
+            }
+            set
+            {
+                switch (value)
+                {
+                    case "Cycle Crossover":
+                        GeneticAlgorithm.CrossoverOperator = Algorithms.CrossoverOperator.CycleCrossover;
+                        break;
+
+                    default:
+                        GeneticAlgorithm.CrossoverOperator = Algorithms.CrossoverOperator.Default;
+                        break;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string _DelayedCrossoverOperator;
+        public string DelayedCrossoverOperator { get => _DelayedCrossoverOperator; set => Set(ref _DelayedCrossoverOperator, value); }
+
+        private string _BenchmarkName;
+        public string BenchmarkName { get => _BenchmarkName; set => Set(ref _BenchmarkName, value); }
 
         /// <summary>
         /// Constructor
@@ -185,9 +214,10 @@ namespace UWPMain.ViewModels
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
                 {
                     CurrentGenerations = GeneticAlgorithm.Generations;
+                    TournamentSize = DelayedTournamentSize;
                     MutationRate = DelayedMutationRate;
                     CrossoverRate = DelayedCrossoverRate;
-                    TournamentSize = DelayedTournamentSize;
+                    CrossoverOperator = DelayedCrossoverOperator;
                 });
             }
         }

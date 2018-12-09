@@ -72,11 +72,13 @@ namespace UWPMain.Views
 
         private void PauseButton_Click(object sender, RoutedEventArgs e) => ViewModel.PauseExecution();
 
-        private async void ResumeButton_Click(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.ResumeExecutionAsync();
-        }
+        private async void ResumeButton_Click(object sender, RoutedEventArgs e) => await ViewModel.ResumeExecutionAsync();
 
         private void Back_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage));
+
+        private async void Restart_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.BeginExecutionAsync();
+        }
     }
 }

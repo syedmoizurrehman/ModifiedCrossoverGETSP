@@ -229,8 +229,8 @@ namespace ConsoleApp
 
         static async Task Main(string[] args)
         {
-            GeneticAlgorithm.Input = ReadSymmetricBenchmarkFile("gr21.tsp");
-            //GeneticAlgorithm.Input = ReadBenchmarkFile("/*ftv*/33.atsp", false);
+            //GeneticAlgorithm.Input = ReadSymmetricBenchmarkFile("gr21.tsp");
+            GeneticAlgorithm.Input = ReadBenchmarkFile("ftv33.atsp", false);
             //GeneticAlgorithm.Input = ReadAsymmetricBenchmarkFile("kro124p.atsp");
             GeneticAlgorithm.TournamentSize = 40;
             GeneticAlgorithm.MutationRate = 0.1;
